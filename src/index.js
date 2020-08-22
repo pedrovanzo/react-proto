@@ -1,7 +1,3 @@
-// const soma = (x, y) => {
-//     return x+y;
-// }
+import { soma, multiplicacao } from './soma';
 
-const soma = (x, y) => x+y;
-
-console.log(soma(7, 10));
+console.log(soma(90, 20) + ' ' + multiplicacao(4, 50));
