@@ -15,7 +15,7 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },
-  "scripts" :{
+  "scripts": {
     "start": "yarn webpack-dev-server --mode development"
   }
 }
