@@ -1,7 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+
+// import StudentsTable from "./components/StudentTable";
+
+import "./App.css";
+
+// import reactLogo from "./assets/reactLogo.png";
+
+import api from './services/api'
 
 // JSX - Javascript XML
 
@@ -10,59 +18,38 @@ import Footer from "./components/Footer";
 // Estados - Imutabilidade / Mutabilidade
 
 const App = () => {
-  const [students, setStudents] = useState([
-    {
-      id: 0,
-      name: "otavio",
-      email: "otavio.lube@faesa.br",
-      institution: "FAESA"
-    },
-    {
-      id: 1,
-      name: "dimitri",
-      email: "dimitrisk8@gmail.com",
-      institution: "ESTACIO"
-    },
-    { id: 2, name: "andreia", email: "andreia@gmail.com", institution: "IFES" }
-  ])
+  const [personagens, setPersonagens] = useState([]);
 
-  function insertRandomStudent() {
-    const randomNumber = Math.random()*100;
-    let newStudent = {
-      id: randomNumber,
-      name: `student${randomNumber}`,
-      email: `student${randomNumber}`,
-      institution: `institution${randomNumber}`
-    };
+  useEffect(() => {
+    api.get('people').then(response => {
+      console.log(response.data.results);
+      setPersonagens(response.data.results);
+    });
+  }, []);
 
-    console.log("student created", newStudent);
-
-    setStudents([...students, newStudent]);
-  }
+  // api.get('people').then(response => console.log(response));
 
   return (
     <>
       <Header text="Meu cabeçalho personalizado..." />
 
-      <button type="button" onClick={insertRandomStudent}>
-        Inserir Aluno Aleatório
-      </button>
-
       <table>
         <thead>
           <tr>
             <td>Nome</td>
-            <td>Email</td>
-            <td>Instituição</td>
+            <td>Altura</td>
+            <td>Peso</td>
+            <td>Cor dp Cabelo</td>
           </tr>
         </thead>
         <tbody>
-          {students.map(s => {
+          {personagens.map((personagem, index) => {
             return (
-              <tr>
-                <td>{s.name}</td>
-                <td>{s.email}</td>
-                <td>{s.institution}</td>
+              <tr key={index}>
+                <td>{personagem.name}</td>
+                <td>{personagem.height}</td>
+                <td>{personagem.mass}</td>
+                <td>{personagem.hair_color}</td>
               </tr>
             );
           })}
@@ -73,11 +60,5 @@ const App = () => {
     </>
   );
 };
-
-// function App(){
-//     return (
-//         <Header />
-//     )
-// }
 
 export default App;
