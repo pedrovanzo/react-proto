@@ -3,13 +3,15 @@ import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
+import Favicon from "react-favicon";
+
 // import StudentsTable from "./components/StudentTable";
 
 import "./App.css";
 
 // import reactLogo from "./assets/reactLogo.png";
 
-import api from './services/api'
+import api from "./services/api";
 
 // JSX - Javascript XML
 
@@ -21,7 +23,7 @@ const App = () => {
   const [personagens, setPersonagens] = useState([]);
 
   useEffect(() => {
-    api.get('people').then(response => {
+    api.get("people").then(response => {
       console.log(response.data.results);
       setPersonagens(response.data.results);
     });
@@ -31,6 +33,7 @@ const App = () => {
 
   return (
     <>
+      <Favicon url="https://avatars3.githubusercontent.com/u/42686130?s=60" />
       <Header text="Meu cabeçalho personalizado..." />
 
       <table>
@@ -39,17 +42,17 @@ const App = () => {
             <td>Nome</td>
             <td>Altura</td>
             <td>Peso</td>
-            <td>Cor dp Cabelo</td>
+            <td>Cor do Cabelo</td>
           </tr>
         </thead>
         <tbody>
           {personagens.map((personagem, index) => {
             return (
               <tr key={index}>
-                <td>{personagem.name}</td>
-                <td>{personagem.height}</td>
-                <td>{personagem.mass}</td>
-                <td>{personagem.hair_color}</td>
+                <td className="pName">{personagem.name}</td>
+                <td className="pHeight">{personagem.height}</td>
+                <td className="pMass">{personagem.mass}</td>
+                <td className="pHairColor">{personagem.hair_color}</td>
               </tr>
             );
           })}
